@@ -21,5 +21,17 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("index", { messages: messages, title: "home :)" });
 });
+app.get("/new", (req, res) => {
+  res.render("new");
+});
 
+app.use(express.urlencoded({ extended: true }));
+app.post("/new", (req, res) => {
+  let newMessage = new NewMessage(
+    req.body.messageText,
+    req.body.messageUser,
+    new Date(),
+  );
+  res.redirect("/");
+});
 app.listen(process.env.PORT);
