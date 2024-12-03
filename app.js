@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("node:path");
 const app = express();
-
+const dotenv = require("dotenv").config(".env");
 let messages = [];
 class NewMessage {
   constructor(text, user, added) {
@@ -21,3 +21,5 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("index", { messages: messages, title: "home :)" });
 });
+
+app.listen(process.env.PORT);

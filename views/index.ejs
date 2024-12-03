@@ -6,10 +6,20 @@
   <title>
 <%=title%>
   </title>
+
 </head>
 <body>
-  <% messeges.forEach((message)=>{
-  <%=message%>
-  }) %> 
+  <% messages.forEach((message)=>{%>
+  <div>
+
+  <%=message.user%>
+
+  <%=message.added%>
+  </div>
+  <div>
+
+  <%=message.text%>
+  </div>
+<%  }) %> 
 </body>
 </html>
