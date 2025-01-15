@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("node:path");
+const { addnewMessages, getallmessages } = require("./controllers/fetch");
 const app = express();
 const dotenv = require("dotenv").config(".env");
 let messages = [];
@@ -18,8 +19,9 @@ let crispy = new NewMessage("chamba7", "rita", new Date());
 app.set("views", path.join(__dirname, "views"));
 
 app.set("view engine", "ejs");
-app.get("/", (req, res) => {
-  res.render("index", { messages: messages, title: "home :)" });
+app.get("/", async (req, res) => {
+  let messages = await getallmessages();
+  res.render("index", { messages: messages.rows, title: "home :)" });
 });
 app.get("/new", (req, res) => {
   res.render("new");
@@ -32,6 +34,7 @@ app.post("/new", (req, res) => {
     req.body.messageUser,
     new Date(),
   );
+  addnewMessages(req, res);
   res.redirect("/");
 });
 app.listen(process.env.PORT);

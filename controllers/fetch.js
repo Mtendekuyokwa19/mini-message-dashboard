@@ -1,9 +1,14 @@
 const db = require("../db/queries.js");
-async function getallmessages(req, res) {
+async function getallmessages() {
   let allmessages = await db.allmessages();
+  console.log(allmessages);
   return allmessages;
 }
-
-async function newMessages(req, res) {
-  await db.newMessage(req.body.messageText, req.body.messageUser);
+async function addnewMessages(req, res) {
+  await db.newMessage(req.body.messageUser, req.body.messageText);
+  console.log("added a message");
 }
+module.exports = {
+  getallmessages,
+  addnewMessages,
+};
